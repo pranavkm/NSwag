@@ -13,14 +13,17 @@
     <Authors>Rico Suter</Authors>
     <PackageIconUrl>https://raw.githubusercontent.com/NSwag/NSwag/master/assets/NuGetIcon.png</PackageIconUrl>
     <Company />
+    <Configurations>Debug;Release;DebugNJS</Configurations>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="NJsonSchema" Version="9.7.1" />
-    <PackageReference Include="NJsonSchema.CodeGeneration" Version="9.7.1" />
+    <PackageReference Include="NJsonSchema" Version="9.7.1" Condition=" '$(Configuration)' != 'DebugNJS' " />
+    <ProjectReference Include="../../../NJsonSchema/src/NJsonSchema/NJsonSchema.csproj" Condition=" '$(Configuration)' == 'DebugNJS' " />
+    <PackageReference Include="NJsonSchema.CodeGeneration" Version="9.7.1" Condition=" '$(Configuration)' != 'DebugNJS' " />
+    <ProjectReference Include="../../../NJsonSchema/src/NJsonSchema.CodeGeneration/NJsonSchema.CodeGeneration.csproj" Condition=" '$(Configuration)' == 'DebugNJS' " />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net451'">
     <Reference Include="Microsoft.CSharp" />

@@ -14,6 +14,7 @@
     <PackageIconUrl>https://raw.githubusercontent.com/NSwag/NSwag/master/assets/NuGetIcon.png</PackageIconUrl>
     <Company />
     <RootNamespace>NSwag</RootNamespace>
+    <Configurations>Debug;Release;DebugNJS</Configurations>
   </PropertyGroup>
   <PropertyGroup>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\$(AssemblyName).xml</DocumentationFile>
@@ -21,9 +22,14 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DefineConstants>TRACE;DEBUG</DefineConstants>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugNJS|AnyCPU'">
+    <DefineConstants>TRACE;DEBUG</DefineConstants>
+  </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="9.0.1" />
-    <PackageReference Include="NJsonSchema" Version="9.7.1" />
+    
+    <PackageReference Include="NJsonSchema" Version="9.7.1" Condition=" '$(Configuration)' != 'DebugNJS' " />
+    <ProjectReference Include="../../../NJsonSchema/src/NJsonSchema/NJsonSchema.csproj" Condition=" '$(Configuration)' == 'DebugNJS' " />
   </ItemGroup>
   <ItemGroup Condition="'$(TargetFramework)' == 'net45'">
     <Reference Include="Microsoft.CSharp" />
