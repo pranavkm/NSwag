@@ -1,4 +1,4 @@
-// 20171013142214
+// 20171013145348
 // http://localhost:49931/Home/New
 
 {
@@ -18,7 +18,7 @@
     "application/json"
   ],
   "paths": {
-    "api/Date/AddDays": {
+    "/api/Date/AddDays": {
       "post": {
         "tags": [
           "Date"
@@ -54,7 +54,7 @@
         }
       }
     },
-    "api/Date/GetDayOfYear": {
+    "/api/Date/GetDayOfYear": {
       "post": {
         "tags": [
           "Date"
@@ -82,7 +82,7 @@
         }
       }
     },
-    "api/Enumeration/ReverseQueryEnumList": {
+    "/api/Enumeration/ReverseQueryEnumList": {
       "get": {
         "tags": [
           "Enumeration"
@@ -114,7 +114,7 @@
         }
       }
     },
-    "api/File/GetFile": {
+    "/api/File/GetFile": {
       "get": {
         "tags": [
           "File"
@@ -140,7 +140,7 @@
         }
       }
     },
-    "api/SampleData/WeatherForecasts": {
+    "/api/SampleData/WeatherForecasts": {
       "get": {
         "tags": [
           "SampleData"
@@ -163,7 +163,7 @@
         }
       }
     },
-    "api/SampleData": {
+    "/api/SampleData": {
       "delete": {
         "tags": [
           "SampleData"
@@ -195,7 +195,7 @@
         }
       }
     },
-    "api/SampleData/GetRoles": {
+    "/api/SampleData/GetRoles": {
       "get": {
         "tags": [
           "SampleData"
