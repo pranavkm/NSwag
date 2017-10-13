@@ -1,5 +1,5 @@
-// 20171013134624
-// http://localhost:49931/
+// 20171013142214
+// http://localhost:49931/Home/New
 
 {
   "x-generator": "NSwag v11.9.2.0 (NJsonSchema v9.7.5.0 (Newtonsoft.Json v10.0.0.0))",
@@ -18,7 +18,7 @@
     "application/json"
   ],
   "paths": {
-    "/api/Date/AddDays": {
+    "api/Date/AddDays": {
       "post": {
         "tags": [
           "Date"
@@ -54,7 +54,7 @@
         }
       }
     },
-    "/api/Date/GetDayOfYear": {
+    "api/Date/GetDayOfYear": {
       "post": {
         "tags": [
           "Date"
@@ -82,7 +82,7 @@
         }
       }
     },
-    "/api/Enumeration/ReverseQueryEnumList": {
+    "api/Enumeration/ReverseQueryEnumList": {
       "get": {
         "tags": [
           "Enumeration"
@@ -114,7 +114,7 @@
         }
       }
     },
-    "/api/File/GetFile": {
+    "api/File/GetFile": {
       "get": {
         "tags": [
           "File"
@@ -140,7 +140,7 @@
         }
       }
     },
-    "/api/SampleData/WeatherForecasts": {
+    "api/SampleData/WeatherForecasts": {
       "get": {
         "tags": [
           "SampleData"
@@ -163,7 +163,7 @@
         }
       }
     },
-    "/api/SampleData": {
+    "api/SampleData": {
       "delete": {
         "tags": [
           "SampleData"
@@ -174,7 +174,6 @@
             "type": "string",
             "name": "id",
             "in": "query",
-            "required": true,
             "x-nullable": false,
             "format": "guid"
           },
@@ -196,7 +195,7 @@
         }
       }
     },
-    "/api/SampleData/GetRoles": {
+    "api/SampleData/GetRoles": {
       "get": {
         "tags": [
           "SampleData"
