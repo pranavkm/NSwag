@@ -86,8 +86,8 @@ namespace NSwag.Commands
 
         private void WaitWhenDebuggerAttached()
         {
-            if (Debugger.IsAttached)
-                _host.ReadValue("Press <enter> key to exit");
+            //if (Debugger.IsAttached)
+            //    _host.ReadValue("Press <enter> key to exit");
         }
     }
 }
