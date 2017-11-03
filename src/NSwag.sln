@@ -136,7 +136,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.SwaggerGeneration.Asp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.SwaggerGeneration.AspNetCore.Tests", "NSwag.SwaggerGeneration.AspNetCore.Tests\NSwag.SwaggerGeneration.AspNetCore.Tests.csproj", "{5A11ECF6-6783-4797-9CBD-F1F2A63493DF}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.Console.AspNetCore", "NSwag.Console.AspNetCore\NSwag.Console.AspNetCore.csproj", "{B715070B-E76E-4959-894A-623EB7639E5F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NSwag.AspNetCore.Launcher", "NSwag.AspNetCore.Launcher\NSwag.AspNetCore.Launcher.csproj", "{B715070B-E76E-4959-894A-623EB7639E5F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

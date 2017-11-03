@@ -10,7 +10,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Threading;
 using System.Threading.Tasks;
 using NConsole;
 using Newtonsoft.Json;
@@ -25,6 +24,8 @@ namespace NSwag.Commands
     [Command(Name = "aspnetcore2swagger", Description = "Generates a Swagger specification ASP.NET Core Mvc application using ApiExplorer.")]
     public class AspNetCoreToSwaggerCommand : IConsoleCommand
     {
+        private const string LauncherBinaryName = "NSwag.AspNetCore.Launcher";
+
         [JsonIgnore]
         public AspNetCoreToSwaggerGeneratorCommandSettings Settings { get; } = new AspNetCoreToSwaggerGeneratorCommandSettings();
 
@@ -185,12 +186,30 @@ namespace NSwag.Commands
                 OutputPath = Path.GetFullPath(OutputPath);
             }
 
+            var cleanupFiles = new List<string>();
+
             var toolDirectory = Path.GetDirectoryName(typeof(AspNetCoreToSwaggerCommand).GetTypeInfo().Assembly.Location);
             var args = new List<string>();
             string executable;
+
             if (projectMetadata.TargetFrameworkIdentifier == ".NETFramework")
             {
-                throw new NotImplementedException("TBD");
+                var binaryName = LauncherBinaryName + ".exe";
+                var executableSource = Path.Combine(toolDirectory, binaryName);
+                if (!File.Exists(executableSource))
+                    throw new InvalidOperationException($"Unable to locate {binaryName} in {toolDirectory}.");
+
+                executable = Path.Combine(projectMetadata.OutputPath, binaryName);
+                File.Copy(executableSource, executable, overwrite: true);
+                cleanupFiles.Add(executable);
+
+                var appConfig = Path.Combine(projectMetadata.OutputPath, projectMetadata.TargetFileName + ".config");
+                if (File.Exists(appConfig))
+                {
+                    var copiedAppConfig = Path.ChangeExtension(executable, ".exe.config");
+                    File.Copy(appConfig, copiedAppConfig, overwrite: true);
+                    cleanupFiles.Add(copiedAppConfig);
+                }
             }
             else if (projectMetadata.TargetFrameworkIdentifier == ".NETCoreApp")
             {
@@ -202,10 +221,11 @@ namespace NSwag.Commands
                 args.Add("--runtimeconfig");
                 args.Add(projectMetadata.ProjectRuntimeConfigFilePath);
 
-                var executorBinary = Path.Combine(toolDirectory, "NSwag.Console.AspNetCore.dll");
+                var binaryName = LauncherBinaryName + ".dll";
+                var executorBinary = Path.Combine(toolDirectory, binaryName);
                 if (!File.Exists(executorBinary))
                 {
-                    throw new InvalidOperationException($"Unable to locate NSwag.Console.AspNetCore.dll in {toolDirectory}");
+                    throw new InvalidOperationException($"Unable to locate {binaryName} in {toolDirectory}.");
                 }
                 args.Add(executorBinary);
             }
@@ -217,8 +237,10 @@ namespace NSwag.Commands
             var settingsContentFile = Path.GetTempFileName();
             var settingsJson = JsonConvert.SerializeObject(Settings);
             File.WriteAllText(settingsContentFile, settingsJson);
-
+            cleanupFiles.Add(settingsContentFile);
+            
             args.Add(settingsContentFile);
+            args.Add(toolDirectory);
             try
             {
                 var exitCode = await Exe.RunAsync(executable, args, verboseHost).ConfigureAwait(false);
@@ -231,7 +253,23 @@ namespace NSwag.Commands
             }
             finally
             {
-                File.Delete(settingsContentFile);
+                TryDeleteFile(cleanupFiles);
+            }
+        }
+
+        private static void TryDeleteFile(List<string> files)
+        {
+            foreach (var file in files)
+            {
+                try
+                {
+                    if (File.Exists(file))
+                        File.Delete(file);
+                }
+                catch
+                {
+                    // Don't throw any if any clean up operation fails.
+                }
             }
         }
     }

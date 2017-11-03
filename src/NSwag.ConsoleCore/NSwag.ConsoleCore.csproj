@@ -17,7 +17,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\NSwag.Commands\NSwag.Commands.csproj" />
-    <ProjectReference Include="..\NSwag.Console.AspNetCore\NSwag.Console.AspNetCore.csproj" />
+    <ProjectReference Include="..\NSwag.Launcher.AspNetCore\NSwag.Launcher.AspNetCore.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NConsole" Version="3.6.6378.42120" />

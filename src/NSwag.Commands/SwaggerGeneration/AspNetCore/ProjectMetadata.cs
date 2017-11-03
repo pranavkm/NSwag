@@ -165,6 +165,9 @@ namespace NSwag.Commands.SwaggerGeneration.AspNetCore
                 TargetFrameworkIdentifier = metadata[nameof(TargetFrameworkIdentifier)],
             };
 
+            projectMetadata.ProjectDir = Path.GetFullPath(projectMetadata.ProjectDir);
+            projectMetadata.OutputPath = Path.GetFullPath(Path.Combine(projectMetadata.ProjectDir, projectMetadata.OutputPath));
+
             return projectMetadata;
         }
     }
