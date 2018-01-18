@@ -65,7 +65,7 @@ public IActionResult EditUser(UserModel model)
 
 # ApiController analyzers
 
-ApiControllers are opinionated and offer opportunities to give diagnoses when writing code instead of having runtime exceptions.
+ApiControllers are opinionated and offer opportunities to give diagnoses when writing code instead of having runtime exceptions. The intent is to encourage the user to have a controller with minimal Mvc specific cruft.
 
 ## ApiController actions must be attribute routed
 ApiControllers require all actions to be attribute routed. The analyzer can detect if neither the
