@@ -1,4 +1,4 @@
-Analyzers for Mvc
+# Analyzers for Mvc
 
 ## Async void actions \ handlers
 We've had more than a handful of issues filed around this, more commonly with Razor Pages. Handlers or actions are marked `async void` and this results in spurious behavior.
