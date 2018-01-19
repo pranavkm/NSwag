@@ -221,4 +221,24 @@ public async Task<ActionResult<Pet>> GetPet(int id)
 }
 ```
 
+# Analyzers for views
 
+Need to investigate what it would take to run analyzers \ code fixes on views. Razor SDK + CompileOnBuild might offer an easy opportunity to run analyzers (but not code fixes).
+
+## Use TagHelpers when available.
+One way to motivate users to migrate to TagHelpers would be to suggest replacing the use of HtmlHelpers with their TagHelper equivalent. Not only does this help users to write more idiomatic Razor, it also gives us an opportunity to address issues with legacy HtmlHelpers such as https://github.com/aspnet/Mvc/issues/7083.
+
+**Input**:
+```C#
+// _Layout.cshtml
+...
+@Html.Partial("_LoginPartial")
+...
+```
+
+**Build Output**:
+```
+Views\Shared\_Layout.cshtml(41,7): warning MVC3001: Use the <partial> tag helper instead of Html.Partial. [D:\temp\razor-build-test\razor-build-test.csproj]
+```
+
+**Considerations**: MSBuild only shows diagnostics that are Warning or Errors. So we'd have to flag these as Warnings at minimal to get it to show up.
